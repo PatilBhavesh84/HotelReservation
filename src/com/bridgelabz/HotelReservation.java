@@ -74,9 +74,9 @@ public class HotelReservation {
 				price  += min;
 			}		
 		}
-		System.out.println(hName+" total price is "+price);	
+		System.out.println(hName+" total price "+price);	
 	}
 	public static void main(String[] args) {		
-		findCheapHotelsAsPerGivenDates();
+		displayListOfAllhotels();
 	}
 }
