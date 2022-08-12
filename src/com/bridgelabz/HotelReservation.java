@@ -28,6 +28,7 @@ class HotelData{
 				"\nRating: "+ratingOfHotel;  
 	}
 }
+
 public class HotelReservation {
 
 	static HotelData lakewood = new HotelData("Lakewood",110,80,90,80,3);
@@ -78,5 +79,6 @@ public class HotelReservation {
 	}
 	public static void main(String[] args) {		
 		displayListOfAllhotels();
+		findCheapHotelsAsPerGivenDates();
 	}
 }
