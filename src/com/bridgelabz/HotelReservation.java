@@ -1,7 +1,10 @@
 package com.bridgelabz;
+import java.util.*;  
+import java.util.stream.Collectors;  
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.*;
 
 class InvalidDetailsException extends Exception
 {
@@ -17,7 +20,7 @@ class HotelData{
 	int hotelRatesOnWeekdaysRewardCustomer;
 	int hotelRatesOnWeekendsRewardCustomer;
 	int ratingOfHotel;
- 
+
 	public HotelData(String hName,int hratesWeekdayRC,int hRatesOnWeekendsRC,int hRatesOnWeekdaysRewardCustomer,int hRatesOnWeekendsRewardCustomer,int ratingHotel) {
 		this.hotelName=hName;
 		this.hotelRatesOnForWeekdaysRegularCustomer=hratesWeekdayRC;
@@ -26,27 +29,27 @@ class HotelData{
 		this.hotelRatesOnWeekendsRewardCustomer=hRatesOnWeekendsRewardCustomer;
 		this.ratingOfHotel=ratingHotel;
 	}
-	
+
 	public String toString(){
 		return "\n"+hotelName+
-			"\nHotel rate on Weekdays for Regular Customer: "+hotelRatesOnForWeekdaysRegularCustomer+
-			"\nHotel rate on Weekends for Reward Customer: "+hotelRatesOnForWeekendsRegularCustomer+
-			"\nHotel rate on Weekdays for Regular Customer: "+hotelRatesOnWeekdaysRewardCustomer+
-			"\nHotel rate on Weekends for Reward Customer: "+hotelRatesOnWeekendsRewardCustomer+
-			"\nRating: "+ratingOfHotel;  
+				"\nHotel rate on Weekdays for Regular Customer: "+hotelRatesOnForWeekdaysRegularCustomer+
+				"\nHotel rate on Weekends for Reward Customer: "+hotelRatesOnForWeekendsRegularCustomer+
+				"\nHotel rate on Weekdays for Regular Customer: "+hotelRatesOnWeekdaysRewardCustomer+
+				"\nHotel rate on Weekends for Reward Customer: "+hotelRatesOnWeekendsRewardCustomer+
+				"\nRating: "+ratingOfHotel;  
 	}
 }
 
 public class HotelReservation {
-	
+
 	static HotelData lakewood = new HotelData("Lakewood",110,90,80,80,3);
 	static HotelData Bridgewood = new HotelData("Bridgewood",160,60,110,50,4);
 	static HotelData Ridgewood = new HotelData("Ridgewood",220,150,100,40,5);
 	public static ArrayList<HotelData> hotels = new  ArrayList<>();
 	static {
-	hotels.add(lakewood);
-	hotels.add(Bridgewood);
-	hotels.add(Ridgewood);
+		hotels.add(lakewood);
+		hotels.add(Bridgewood);
+		hotels.add(Ridgewood);
 	}
 	public static void displayListOfAllhotels() {
 		System.out.println(hotels);
@@ -170,14 +173,20 @@ public class HotelReservation {
 		System.out.println(hName+",Rating: "+ max +" total price is "+finalPrice);	
 	}
 
-		
+
 	public static void main(String[] args) {		
-		
+
 		try {
 			findCheapBestRatedHotelsForRewardCustomerAsPerGivenDates();
 		}
 		catch(Exception e) {
 			System.out.println("Enter the proper input");
 		}
+		List<String> r =  hotels.stream()  
+				.filter(p ->p.ratingOfHotel>4)   // filtering price  
+				.map(pm ->pm.hotelName+" Rating: "+pm.ratingOfHotel+" Price: "+pm.hotelRatesOnWeekendsRewardCustomer)          // fetching price  
+				.collect(Collectors.toList());  
+		System.out.println(r);  
 	}
+
 }
